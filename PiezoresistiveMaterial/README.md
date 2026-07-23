@@ -58,67 +58,75 @@ $[\rho] = [\rho_0]([I] + [r])$
 
 where:
 
-$[\rho]$ = electric resistivity matrix of a loaded material, which is symmetric, and $[\rho] = \left( \begin{matrix}
+$[\rho]$ = electric resistivity matrix of a loaded material, which is symmetric, and 
+
+$$ [\rho] = \begin{bmatrix}
 \rho_{xx} & \rho_{xy} & \rho_{xz} \\
 \rho_{xy} & \rho_{yy} & \rho_{yz} \\
 \rho_{xz} & \rho_{yz} & \rho_{zz}
-\end{matrix} \right)$
+\end{bmatrix} $$
 
-$[\rho_0]$ = electric resistivity matrix of an unloaded material, and $[\rho_0] = \left( \begin{matrix}
+$[\rho_0]$ = electric resistivity matrix of an unloaded material, and 
+
+$$[\rho_0] = \begin{bmatrix}
 \rho_{0xx} & 0 & 0 \\
 0 & \rho_{0yy} & 0 \\
 0 & 0 & \rho_{0zz}
-\end{matrix} \right)$
+\end{bmatrix} $$
 
 $\rho_{0xx}$, $\rho_{0yy}$, and $\rho_{0zz}$ are electrical resistivities, and they are input as $RSVX$, $RSVY$, and $RSVZ$ on $MP$ command in MAPDL.
 
-$[I]$ is the identity matrix, and $[I] = \left( \begin{matrix}
+$[I]$ is the identity matrix, and 
+
+$$[I] = \begin{bmatrix}
 1 & 0 & 0 \\
 0 & 1 & 0 \\
 0 & 0 & 1\\
-\end{matrix} \right)$
+\end{bmatrix}$$
 
-$[r]$ is the relative change in resistivity due to piezoresistive stress, and $[r] = \left( \begin{matrix}
+$[r]$ is the relative change in resistivity due to piezoresistive stress, and 
+
+$$[r] = \begin{bmatrix}
 r_{xx} & r_{xy} & r_{xz} \\
 r_{xy} & r_{yy} & r_{yz} \\
 r_{xz} & r_{yz} & r_{zz} \\
-\end{matrix} \right)$
+\end{bmatrix} $$
 
 Elements in matrix $[r]$ is related to the piezoresistive stress matrix $[\pi]$ and the stress vector $\{\sigma\} = [\sigma_{xx} \ \sigma_{yy} \ \sigma_{zz} \ \sigma_{xy} \ \sigma_{yz} \ \sigma_{xz}]^T$.
 
-$\left( \begin{matrix}
+$$ \begin{bmatrix}
 r_{xx} \\
 r_{yy} \\
 r_{zz} \\
 r_{xy} \\
 r_{yz} \\
 r_{xz} \\
-\end{matrix} \right) = \left( \begin{matrix}
+\end{bmatrix}  = \begin{bmatrix}
 \pi_{11} & \pi_{12} & \pi_{13} & \pi_{14} & \pi_{15} & \pi_{16} \\
 \pi_{21} & \pi_{22} & \pi_{23} & \pi_{24} & \pi_{25} & \pi_{26} \\
 \pi_{31} & \pi_{32} & \pi_{33} & \pi_{34} & \pi_{35} & \pi_{36} \\
 \pi_{41} & \pi_{42} & \pi_{43} & \pi_{44} & \pi_{45} & \pi_{46} \\
 \pi_{51} & \pi_{52} & \pi_{53} & \pi_{54} & \pi_{55} & \pi_{56} \\
 \pi_{61} & \pi_{62} & \pi_{63} & \pi_{64} & \pi_{65} & \pi_{66} \\
-\end{matrix} \right) \left(\begin{matrix}
+\end{bmatrix} \begin{bmatrix}
 \sigma_{xx} \\
 \sigma_{yy} \\
 \sigma_{zz} \\
 \sigma_{xy} \\
 \sigma_{yz} \\
 \sigma_{xz} \\
-\end{matrix} \right)$
+\end{bmatrix} $$
 
 Silicon has cubic symmetric, and as a result the $[\pi]$ matrix can be descrived in terms of three independent constants in the following manner:
 
-$[\pi] = \left(\begin{matrix}
+$$ [\pi] = \begin{bmatrix}
 \pi_{11} & \pi_{12} & \pi_{12} & 0 & 0 & 0 \\
 \pi_{12} & \pi_{11} & \pi_{12} & 0 & 0 & 0 \\
 \pi_{12} & \pi_{12} & \pi_{11} & 0 & 0 & 0 \\
 0 & 0 & 0 & \pi_{44} & 0 & 0 \\ 
 0 & 0 & 0 & 0 & \pi_{44} & 0 \\
 0 & 0 & 0 & 0 & 0 & \pi_{44} \\  
-\end{matrix} \right)$
+\end{bmatrix} $$
 
 ## Numerical Model of $J-E$ Relationship (DC Condution Analysis)
 On the electromagnetic field side, the DC conduction problem is solved. When a material with a non-zero conductivity is subject to a potential difference, conduction current flows in the material. At all points in the problem space, the current density $J$ will be proportional to the electric field $E$ that is established due to the potential difference.
@@ -139,22 +147,22 @@ $\nabla \cdot ([\rho]^{-1} \nabla \phi) = 0$
 
 For linear materials, the stress is related to the strains by:
 
-$\{\sigma\} = [D] \{\epsilon^{el}\}$
+$\\{\sigma\\} = [D] \\{\epsilon^{el}\\}$
 
-where $\{\epsilon^{el}\} = \{\epsilon\} - \{\epsilon^{th}\}$ is the elastic strain vector, $\{\epsilon\} = [\epsilon_{xx} \ \epsilon_{yy} \ \epsilon_{zz} \ \epsilon_{xy} \ \epsilon_{yz} \ \epsilon_{xz}]^{T}$ the total strain vector, $\{\epsilon^{th}\} = \Delta T [\alpha_{xx}^{se} \ \alpha_{yy}^{se} \ \alpha_{zz}^{se} \ 0 \ 0 \ 0]^{T}$ the thermal strain vector. $\alpha_{xx}^{se}$ is the x-component of secant coefficient of thermal expansion, $\Delta T = T - T_{ref}$, where $T$ is the current temperature at the point in question, and $T_{ref}$ the reference (strain-free) temperature. All the stresses are defined in the figure shown below.
+where $\\{\epsilon^{el}\\} = \\{\epsilon\\} - \\{\epsilon^{th}\\}$ is the elastic strain vector, $\{\epsilon\} = [\epsilon_{xx} \ \epsilon_{yy} \ \epsilon_{zz} \ \epsilon_{xy} \ \epsilon_{yz} \ \epsilon_{xz}]^{T}$ the total strain vector, $\{\epsilon^{th}\} = \Delta T [\alpha_{xx}^{se} \ \alpha_{yy}^{se} \ \alpha_{zz}^{se} \ 0 \ 0 \ 0]^{T}$ the thermal strain vector. $\alpha_{xx}^{se}$ is the x-component of secant coefficient of thermal expansion, $\Delta T = T - T_{ref}$, where $T$ is the current temperature at the point in question, and $T_{ref}$ the reference (strain-free) temperature. All the stresses are defined in the figure shown below.
 
 ![](./images/stress_vector_definition.png)
 
 $[D]$ is the elasticity or elastic stiffness matrix. Its inverse is the flexibility or compliance matrix $[D]^{-1}$:
 
-$[D]^{-1} = \left( \begin{matrix}
+$$[D]^{-1} = \begin{bmatrix}
 1/E_{xx} & -v_{xy}/E_{xx} & -v_{xz}/E_{xx} & 0 & 0 & 0\\
 -v_{yx}/E_{yy} & 1/E_{yy} & -v_{yz}/E_{yy} & 0 & 0 & 0\\
 -v_{zx}/E_{zz} & -v_{zy}/E_{zz} & 1/E_{zz} & 0 & 0 & 0\\
 0 & 0 & 0 & 1/G_{xy} & 0 & 0\\
 0 & 0 & 0 & 0 & 1/G_{yz} & 0\\
 0 & 0 & 0 & 0 & 0 & 1/G_{xz}
-\end{matrix} \right)$
+\end{bmatrix} $$
 
 where typical terms are:
 
@@ -195,7 +203,7 @@ In MAPDL, the stress vector is shown in the figure below. The sign convention fo
 
 The strains are related to the nodal displacements by:
 
-$\{\epsilon\} = [B] \{u\}$
+$\\{\epsilon\\} = [B] \\{u\\}$
 where $[B]$ is the strain-displacement matrix, based on the element shape functions, and $\{u\}$ the nodal displacement vector.
 
 ## Combined Stresses and Strains
@@ -206,11 +214,11 @@ When a model has only one functional direction of strains and stress, comparison
 
 The principal strains are calculated from the strain components by the cubic equation:
 
-$\left| \begin{matrix}
+$$\begin{vmatrix}
 \epsilon_x - \epsilon_0 & \frac {1}{2} \epsilon_{xy} & \frac {1}{2} \epsilon_{xz} \\
 \frac{1}{2} \epsilon_{xy} & \epsilon_y - \epsilon_0 & \frac{1}{2} \epsilon_{yz} \\
 \frac{1}{2} \epsilon_{xz} & \frac{1}{2} \epsilon_{yz} & \epsilon_z - \epsilon_0
-\end{matrix} \right| = 0$
+\end{vmatrix} = 0$$
 
 where $\epsilon_0$ is the principal strain and it has three values. The three principal strains are labled as $\epsilon_1$, $\epsilon_2$, and $\epsilon_3$. The principal strains are ordered so that $\epsilon_1$ is the most positive and $\epsilon_3$ is the most negative.
 
@@ -228,11 +236,11 @@ where $v^{'}$ is the effective Poisson's ratio.
 
 The principal stresses $(\sigma_x, \sigma_y, \sigma_z)$ are calculated from the stress components by the cubic equation:
 
-$\left| \begin{matrix}
+$$\begin{vmatrix}
 \sigma_x - \sigma_0 & \frac {1}{2} \sigma_{xy} & \frac {1}{2} \sigma_{xz} \\
 \frac{1}{2} \sigma_{xy} & \sigma_y - \sigma_0 & \frac{1}{2} \sigma_{yz} \\
 \frac{1}{2} \sigma_{xz} & \frac{1}{2} \sigma_{yz} & \sigma_z - \sigma_0
-\end{matrix} \right| = 0$
+\end{vmatrix} = 0$$
 
 The principal stresses are ordered so that $\sigma_1$ is the most positive (tensile) and $\sigma_3$ is the most negative.
 
