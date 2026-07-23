@@ -1,0 +1,31 @@
+# 
+# Mon Jul 20 22:13:46 2026
+# EnSight 2026 R1
+# Case File: PiezoresistiveAnalysis_Ensight.case
+
+FORMAT
+type:                      ensight gold
+
+GEOMETRY
+model:                     1 1 PiezoresistiveAnalysis_Ensight.geo1
+
+VARIABLE
+vector per node:           1 1 Displacement PiezoresistiveAnalysis_Ensight.Displacement1
+vector per node:           1 1 Reaction_Force PiezoresistiveAnalysis_Ensight.Reaction_Force1
+scalar per node:           1 1 Voltage PiezoresistiveAnalysis_Ensight.Voltage1
+tensor symm per element:        1 1 Stress_el PiezoresistiveAnalysis_Ensight.Stress_el1
+tensor symm per element:        1 1 Strain_el PiezoresistiveAnalysis_Ensight.Strain_el1
+
+TIME
+time set:               1
+number of steps:        1
+time values:
+ 1.00000000e+00
+
+FILE
+
+file set:          1
+number of steps:       1
+
+SCRIPTS
+metadata: PiezoresistiveAnalysis_Ensight_meta.xml

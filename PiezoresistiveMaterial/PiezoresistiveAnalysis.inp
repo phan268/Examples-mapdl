@@ -1,0 +1,144 @@
+/batch, list
+/com,	ANSYS RELEASE 2026 R1.02        BUILD 26.1      UP20260202       12:50:27   
+/title, Four-terminal piezoresistive element, uMKSV system of unit  
+/com,   
+/com, Geometric parameters: 
+/com,   
+W = 57 				! width of piezoresistor, um  
+L = 1.5*W 			! length of piezoresistor, um  
+b = 23 				! width of signal-conducting arm, um  
+a = 2*b 			! length of signal-conducting arm, um
+S = 2*L 			! size of square diaphram, um
+/com,   
+/com, Material properties (Si): 
+/com,   
+/com, Stiffness, MN/m^2 
+/com, [c11 c12 c12 0]   
+/com, [c12 c11 c12 0]
+/com, [c12 c12 c11 0]
+/com, [0 0 0 c44]      
+/com,   
+c11 = 16.57e4  
+c12 = 6.39e4   
+c44 = 7.96e4     
+SAVE, PiezoresistiveAnalysis,db,  
+/com,   
+/com, Resistivity (p-type Si), TOhm*um  
+rho = 7.8e-8   
+/com,   
+/com, Piezoresistive coefficients (p-type Si), (MPa)^(-1)   
+/com, [p11 p12 p12 0]   
+/com, [p12 p11 p12 0]   
+/com, [p12 p12 p11 0]   
+/com, [0 0 0 p44]   
+/com,   
+p11 = 6.5e-5 
+p12 = -1.1e-5
+p44 = 138.1e-5   
+/com,   
+/com, Pressure load, MPa
+p = 10   
+/com, Source voltage, Volt  
+Vs = 5   
+/nopr
+   
+/prep7  
+et, 1, PLANE223, 101 	! piezoresistive element type, plane stress
+et, 2, PLANE183 		! structural element type, plane stress 
+						! Specify material orientation  
+local, 11 				! X-axis along [110] direction
+local, 12,,,,,45
+
+						! Specify material properties:
+tb, ANEL,1,,,0 			! anisotropic elasticity matrix  
+tbda, 1, c11, c12, c12  
+tbda, 7, c11, c12   
+tbda, 12, c11   
+tbda, 16, c44   
+mp, RSVX, 1, rho 		! resistivity  
+
+tb, PZRS, 1 			! piezoresistive stress matrix  
+tbda, 1, p11, p12, p12  
+tbda, 7, p12, p11, p12  
+tbda, 13, p12, p12, p11 
+tbda, 22, p44   
+
+csys, 12				! Define piezoresistor area:
+k, 1, b/2, W/2+a
+k, 2, b/2, W/2  
+k, 3, L/2, W/2  
+k, 4, L/2, -W/2 
+k, 5, b/2, -W/2 
+k, 6, b/2, -W/2-a   
+k, 7, -b/2, -W/2-a  
+k, 8, -b/2, -W/2
+k, 9, -L/2, -W/2
+k, 10, -L/2, W/2
+k, 11, -b/2, W/2
+k, 12, -b/2, W/2+a  
+a, 1,2,3,4,5,6,7,8,9,10,11,12   
+
+csys, 11				! Define structural area:
+rect, -S/2,S/2, -S/2, S/2   
+						! Mesh areas:
+aovlap, all 
+esys, 12 				! Apply electrical BC  
+type, 1
+esize, b/4
+mshape, 1, 2D 			! use triangles
+amesh, 1
+type, 2
+esize, b/2
+amesh, 3
+
+csys, 12 				! Apply electrical BC  
+nsel, s, loc, x, -L/2   
+nsel, r, loc, y, -W/2, W/2  
+cp, 1, volt, all					! left electrode:
+*get, nl, node, 0, num, min 		! get master node   
+d, nl, volt, Vs 					! apply source voltage Vs   
+
+nsel, s, loc, x, L/2
+nsel, r, loc, y, -W/2, W/2  
+d, all, volt, 0 					! ground right electrode
+
+nsel, s, loc, y, W/2+a  
+nsel, r, loc, x, -b/2, b/2  
+cp, 2, volt, all 					! top electrode:   
+*get, nt, node, 0, num, min 			! get master node
+
+nsel, s, loc, y, -W/2-a 
+nsel, r, loc, x, -b/2, b/2  
+cp, 3, volt, all 					! bottom electrode:
+*get, nb, node, 0, num, min 		! get master node   
+nsel, all   
+
+csys, 11 							! Apply structural BC  
+nsel, s, loc, x, -S/2   
+d, all, ux, 0   
+nsel, r, loc, y, -S/2   
+d, all, uy, 0   
+nsel, s, loc, x, S/2
+sf, all, pres, p 					! pressure load
+nsel, all
+   
+/pbc, u,,1  
+/pbc, volt, ,1  
+/pbc, cp, ,1
+/pnum, type, 1  
+/number, 1  
+eplot   
+fini
+
+/solu 								! Solution
+antype, static  
+cnvtol, amps, 1, 1.e-3 				! Optional to prevent a warning message  
+solve   
+fini
+
+/post1  
+/com,   
+/com, Results:  
+/com, Vout (ANSYS) = %abs(volt(nt) - volt(nb))*1.e3%, mV
+/com, Vout (Analytical) = %Vs*W/L*p44*p/2*1e3%, mV  
+fini

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CEImetadata version="1.0">
+  <parts>
+    <partlist>
+      <part name="Part 1"></part>
+    </partlist>
+  </parts>
+  <vars>
+    <metatags>
+      <tag name="ENS_UNITS_LABEL" type="str"></tag>
+      <tag name="ENS_UNITS_DIMS" type="str">/</tag>
+    </metatags>
+    <varlist>
+      <var name="Voltage" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+      <var name="Displacement" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+      <var name="Reaction_Force" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+      <var name="Stress_el" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+      <var name="Strain_el" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+      <var name="Coordinates" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+      <var name="Time" ENS_UNITS_LABEL="" ENS_UNITS_DIMS=""></var>
+    </varlist>
+  </vars>
+  <case>
+    <metatags>
+      <tag name="ENS_UNITS_LABEL" type="flt">2.0</tag>
+      <tag name="ENS_UNITS_DIMS" type="flt">1.0</tag>
+      <tag name="ENS_UNITS_SYSTEM" type="flt">1.0</tag>
+      <tag name="ENS_UNITS_SYSTEM_NAME" type="str">USER</tag>
+    </metatags>
+  </case>
+</CEImetadata>
