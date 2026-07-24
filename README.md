@@ -32,16 +32,17 @@ and the coupling effect is accounted for by the presence of the off-diagonal sub
 
 2. *Weak Coupling*, also called load vector or sequential coupling -- where the coupling in the matrix equation is shown in the most general form:
 
-$$\begin{bmatrix}
-[K_{11} (X_1, X_2) & [0]\\
-[0] & K_{22}(X_1, X_2)]
+$$ \begin{bmatrix}
+K_{11}(X_1, X_2) & [0]\\
+[0] & K_{22}(X_1, X_2)
 \end{bmatrix}
 \begin{bmatrix}
-X_1 \\ X_2
+X_1 \\ 
+X_2
 \end{bmatrix}
-=
-\begin{bmatrix}
-F_1 (X_1, X_2) \\ F_2 (X_1, X_2)
+=\begin{bmatrix}
+F_1 (X_1, X_2) \\
+F_2 (X_1, X_2)
 \end{bmatrix}$$
 
 and the coupling effect is accounted for in the dependency of $[K_{11}]$ and $F_1$ on $X_2$ as well as $[K_{22}]$ and $F_2$ on $X_1$. At least two iterations are required to achieve a coupled response.
