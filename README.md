@@ -20,14 +20,16 @@ There are basically two methods of coupling distinguished by the finite element 
 1. *Strong Coupling*, also called matrix, simultaneous, or full coupling -- where the matrix equation is of the form:
 
 $$ \begin{bmatrix}
-K_{11} & K_{12} \\
-K_{21} & K_{22}
+[K_{11}] & [K_{12}] \\
+[K_{21}] & [K_{22}]
 \end{bmatrix} 
-\begin{bmatrix} 
-X_1 \\ X_2
+\begin{bmatrix}
+X_1 \\ 
+X_2
 \end{bmatrix} 
 = \begin{bmatrix} 
-F_1 \\ F_2
+F_1 \\ 
+F_2
 \end{bmatrix}$$
 
 and the coupling effect is accounted for by the presence of the off-diagonal submatrices $[K_{12}]$ and $[K_{21}]$. This method provides for a coupled response in the solution after one iteration.
